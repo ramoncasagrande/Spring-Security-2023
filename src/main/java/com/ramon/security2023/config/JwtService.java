@@ -1,6 +1,7 @@
 package com.ramon.security2023.config;
 
 import java.security.Key;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ public class JwtService {
     
     public String extractUserEmail(String token){
         return null;
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token){
